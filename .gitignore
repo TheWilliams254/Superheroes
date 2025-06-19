@@ -1,1 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Environment variables
 .env
+
+# SQLite database files
+*.sqlite3
+*.db
+
+# Flask migration files (optional — keep if you want versioned DB)
+migrations/
+
+# VS Code files
+.vscode/
+
+# macOS system files
+.DS_Store
+
+# Log files
+*.log
+
+# pyenv or Python version files
+.python-version

@@ -21,16 +21,13 @@ app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 
-print(os.getenv('MAIL_USERNAME'))
-print(os.getenv('MAIL_PASSWORD'))  # don't do this in production
-
 db.init_app(app)
 migrate = Migrate(app, db)
 mail = Mail(app)
 
 @app.route('/')
 def index():
-    return 'Superhero API is running'
+    return 'Superhero API is running!!'
 
 @app.route('/heroes')
 def get_heroes():
