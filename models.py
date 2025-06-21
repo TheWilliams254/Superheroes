@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
-from sqlalchemy.orm import backref
+from sqlalchemy.orm import backref, validates
 
 from sqlalchemy_serializer import SerializerMixin
 
@@ -33,6 +33,12 @@ class Power(db.Model, SerializerMixin):
 
     serialize_rules = ('-hero_powers.power',)
 
+    @validates('description')
+    def validate_description(self , key ,description ):
+        if len(description.strip()) < 20:
+            raise ValueError('The description must be at least 20 characters long')
+        return description
+
 
 class HeroPower(db.Model, SerializerMixin):
     __tablename__ = 'hero_powers'
@@ -47,6 +53,14 @@ class HeroPower(db.Model, SerializerMixin):
     power = db.relationship('Power', back_populates='hero_powers')
 
     serialize_rules = ('-hero.hero_powers', '-power.hero_powers')
+
+    @validates('strength')
+    def validate_strength(self , key , strength):
+        if strength not in ['Strong', 'Weak', 'Average']:
+            raise ValueError("The strength must be either Strong, Weak or Average")
+        return strength
+    
+
 
     def __repr__(self):
         return f'<HeroPower {self.id} {self.hero_id} {self.power_id} {self.strength}>'
